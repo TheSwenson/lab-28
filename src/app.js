@@ -27,7 +27,6 @@ class App extends React.Component {
   }
 
   toggleComplete = id => {
-    console.log(id);
     let newList = this.state.toDo.map((e) => e);
     let item = newList.filter(item => item.id === id)[0] || {};
     if (item.id) {
@@ -36,6 +35,17 @@ class App extends React.Component {
       console.log(this.state.toDo);
     }
   }
+
+  toggleModal = id => {
+    let newList = this.state.toDo.map(item => 
+         item.id === id ? 
+           {
+             ...item, 
+             showModal: !item.showModal,
+           } : item
+       );
+     this.setState({ toDo: newList });
+   }
 
   render() {
     return (
@@ -50,7 +60,10 @@ class App extends React.Component {
           <List 
             list = {this.state.toDo}
             toggle = {this.toggleComplete}
+            modal = {this.toggleModal}
             delete = {this.deleteItem}
+          
+
           />
         </section>
       </>
